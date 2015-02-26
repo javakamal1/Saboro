@@ -1,0 +1,301 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+      <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<!--<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />-->
+	<!--<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>-->
+	<!--<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>-->
+	
+	<script src="assets/js/jquery-1.10.2.js"></script>
+	<script src="assets/js/jquery-ui.js"></script>
+	<script src="assets/js/datepicker.js"></script>
+	<script src="assets/js/jquery.mobile.datepicker.js"></script>     
+    <title>Mahindra - Saboro</title>
+	<!-- BOOTSTRAP STYLES-->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+     <!-- FONTAWESOME STYLES-->
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+        <!-- CUSTOM STYLES-->
+    <link href="assets/css/custom.css" rel="stylesheet" />
+     <!-- GOOGLE FONTS-->
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+   
+   <script>
+		$(document).ready(function(){
+		
+		//Load Masters - Start
+		//Loading Buildings Masters
+		var building = "GetBuilding";
+		var floor = "GetFloor";
+		var location = "GetLocation";
+		var product = "GetProduct";
+		var buildingMaster;
+		
+		$("#btnmaster").click(function(){
+		alert("clicked");
+ 
+		$.ajax({
+				url: "http://10.2.145.53/MahindraSaboro/MahindraSaboro.asmx/GetBuilding",
+				type: 'GET',
+				success: function(data) {
+				//called when successful
+				buildingMaster = data;
+				alert(data);
+				
+				$(buildingMaster).find("BuildingList").each(function() {
+				var buildingid = $(this).find("BuildingID").text();
+				var buildingname = $(this).find("Building").text();
+				var locationid = $(this).find("LocationID").text();
+				var locationname = $(this).find("Location").text();
+			
+			alert("Building: " + buildingid + " buildingname: " + buildingname + "locationid" + locationid + "locationid" +locationname);
+			
+			var newOptions = [];
+			$.each(message, function(key, value) {
+				newOptions.push('<option value="'+ key +'">'+ value +'</option>');
+			});
+			$('#selectBoxControlID').html(newOptions.join(''));
+
+
+
+    });
+				
+				//$('#ajaxphp-results').html(data);
+			},
+				error: function(e) {
+				//called when there is an error
+				console.log(e.message);
+				}
+			});
+		});
+		
+		
+		
+		//Load Masters - End
+		
+		
+		
+		var master = "<OrderMaster><Token_No> 288888</Token_No><Name>Vijay Bhonsle</Name> <MobileNo>98765444</MobileNo> <LocationID>1</LocationID><BuildingID>1</BuildingID> <FloorID>1</FloorID><Dept>FD </Dept> <OrderDate>23-Feb-2015</OrderDate><From_Time>10.00</From_Time><To_Time>12.00</To_Time><Subscription>test</Subscription><Delivery_Day>Monday</Delivery_Day></OrderMaster>";
+		
+		var detail = "<OrderDetails><Products><OrderId>123</OrderId> <ProductID>1</ProductID> <Quantity>2</Quantity> </Products> <Products> <OrderId>123</OrderId> <ProductID>2</ProductID><Quantity>2</Quantity></Products><Products> <OrderId>123</OrderId><ProductID>3</ProductID><Quantity>2</Quantity></Products></OrderDetails>";
+		
+		
+		$("#btnsubmit").click(function(){
+		alert("clicked");
+ 
+
+		$.ajax({
+     type: "POST",
+	 contentType: "application/x-www-form-urlencoded",
+     url: "http://10.2.145.53/MahindraSaboro/MahindraSaboro.asmx/InsertOrder",
+     data: {
+          OrderMasterXML: master,
+          OrderDetailXML: detail
+        },
+     async: true,
+     success: function (data, textStatus) {
+	     alert(textStatus);
+		 alert(data);
+		 alert(data.childNodes[0].textContent);
+         if (textStatus == "success") {
+             if (data.hasOwnProperty('d')) {
+                 msg = data.d;
+             } else {
+                 msg = data;
+             }
+             alert(msg);
+ 
+         }
+     },
+     error: function (data, status, error) {
+         alert("error");
+		 alert(data);
+		 alert(status);
+		 alert(error);
+     }
+ });
+
+ 
+ 
+ 
+    });
+});
+	</script>
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom:0;text-align: center;">
+		<img class="logo" src="assets/img/Saboro-logo.png" alt="logo" >
+            
+        </nav>   
+           
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper"  style = "background-image: url(assets/img/Brands-2.jpg)">
+            <div id="page-inner">
+                
+                 <!-- /. ROW  -->
+                 <!-- <hr /> -->
+               <div class="row">
+                <div class="col-md-12">
+                    <!-- Form Elements -->
+					
+                    <div class="panel panel-default">
+                        
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <!-- <h3>Basic Form Examples</h3> -->
+                                    <form data-toggle="validator" role="form">
+                                        <div class="form-group">
+                                            <label for="token" class="control-label">Enter Token No.</label>
+                                            <input class="form-control" type="text" data-clear-btn="true" id="token" value="" placeholder="Please enter Token" maxlength="20" data-minlength="1"
+											required>
+											<span class="help-block with-errors"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="customername" class="control-label">Customer Name</label>
+                                            <input class="form-control" type="text" data-clear-btn="true"  id="customername" value="" placeholder="Please enter name" maxlength="40" data-minlength="1"
+											required>
+											<span class="help-block with-errors"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="mobile" class="control-label">Mobile Number</label>
+                                            <input class="form-control" type="text" data-clear-btn="true" id="mobile" value="" placeholder="Please enter mobile" maxlength="10" data-minlength="1"
+											required>
+											<span class="help-block with-errors">Up to 10 characters</span>
+                                        </div>
+										<div class="form-group">
+                                            <label for="orderdate" class="control-label">Order Date</label>
+                                            <input class="form-control" type="date" data-clear-btn="true" id="orderdate" value="" placeholder="Please enter date" 
+											required>
+											<span class="help-block with-errors"></span>
+                                        </div>
+										<div class="form-group">
+                                            <label for="fromtime" class="control-label">From Time</label>
+                                            <input class="form-control" type="time"  name="fromtime" id="fromtime" value="" placeholder="Please enter From time"
+											required>
+											<span class="help-block with-errors"></span>
+                                        </div>
+										<div class="form-group">
+                                            <label for="totime" class="control-label">To Time</label>
+                                            <input class="form-control" type="time" name="totime" id="totime" value="" placeholder="Please enter To time"
+											required>
+											<span class="help-block with-errors"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Subscription</label>
+                                            <select class="form-control">
+                                                <option>Daily</option>
+                                                <option>Weekly</option>
+                                                <option>Monthly</option>
+                                            </select>
+                                        </div>
+										<div class="form-group">
+                                            <label>Subscription Delivery Day</label>
+                                            <select class="form-control">
+                                                <option>Sunday</option>
+                                                <option>Monday</option>
+                                                <option>Tuesday</option>
+                                                <option>Wednesday</option>
+												<option>Thursday</option>
+												<option>Friday</option>
+												<option>Saturday</option>
+                                            </select>
+                                        </div>
+                                        
+
+                                    </form>
+                                    <br />
+                                 
+								</div>
+                                
+                                <div class="col-md-6">
+                                    <!-- <h3>Disabled Form State Examples</h3> -->
+                                    <form role="form">
+                                        <!-- <fieldset disabled="disabled"> -->
+                                            <div class="form-group">
+                                                <label for="disabledSelect">Location</label>
+                                                <select id="location" class="form-control">
+                                                    <option>Mumbai</option>
+													<option>Pune</option>
+													<option>Nasik</option>
+													<option>Indore</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label >Building</label>
+                                                <select id="building" class="form-control">
+                                                    <option>AD</option>
+													<option>PU</option>
+													<option>AFS</option>
+													<option>DMS</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label >Floor</label>
+                                                <select  class="form-control">
+                                                    <option>1st</option>
+													<option>2nd</option>
+													<option>3rd</option>
+													<option>4th</option>
+                                                </select>
+                                            </div>
+                                            
+                                        <!-- </fieldset> -->
+                                    </form>
+                                    
+                                    <form data-toggle="validator" role="form">
+                                        <div class="form-group">
+                                            <label for="department" class="control-label">Department</label>
+                                            <input class="form-control" type="text" data-clear-btn="true"  id="department" value="" placeholder="Please enter department"
+											required>
+											<span class="help-block with-errors"></span>
+                                        </div>
+                                        <div class="form-group">
+                                                <label >Product</label>
+                                                <select  class="form-control">
+                                                    <option>Product 1</option>
+													<option>Product 2</option>
+													<option>Product 3</option>
+													<option>Product 4</option>
+                                                </select>
+                                            </div>
+                                        <div class="form-group">
+                                            <label for="qty" class="control-label">Quantity</label>
+                                            <input class="form-control" type="number" data-clear-btn="true" id="qty" value="" placeholder="Please enter quantity" 
+											required>
+											<span class="help-block with-errors"></span>
+                                        </div>
+                                    </form>
+									<button type="submit" id="btnsubmit" class="btn btn-success">Submit Button</button>
+                                    <button type="reset" id="btnreset" class="btn btn-primary">Reset Button</button>
+									<button type="submit" id="btnmaster" class="btn btn-primary">Master Button</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- End Form Elements -->
+                </div>
+            </div>
+             <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+        </div>
+		
+     <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    <!--<script src="assets/js/jquery-1.10.2.js"></script>-->
+      <!-- BOOTSTRAP SCRIPTS -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <!-- METISMENU SCRIPTS -->
+    <script src="assets/js/jquery.metisMenu.js"></script>
+      <!-- CUSTOM SCRIPTS -->
+    <script src="assets/js/custom.js"></script>
+	<!--Validator -->
+	<script src="assets/js/validator.min.js"></script>
+    
+   
+</body>
+</html>
