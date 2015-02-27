@@ -1,301 +1,149 @@
-﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-      <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<!--<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />-->
-	<!--<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>-->
-	<!--<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>-->
-	
-	<script src="assets/js/jquery-1.10.2.js"></script>
-	<script src="assets/js/jquery-ui.js"></script>
-	<script src="assets/js/datepicker.js"></script>
-	<script src="assets/js/jquery.mobile.datepicker.js"></script>     
-    <title>Mahindra - Saboro</title>
-	<!-- BOOTSTRAP STYLES-->
-    <link href="assets/css/bootstrap.css" rel="stylesheet" />
-     <!-- FONTAWESOME STYLES-->
-    <link href="assets/css/font-awesome.css" rel="stylesheet" />
-        <!-- CUSTOM STYLES-->
-    <link href="assets/css/custom.css" rel="stylesheet" />
-     <!-- GOOGLE FONTS-->
-   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-   
-   <script>
-		$(document).ready(function(){
-		
-		//Load Masters - Start
-		//Loading Buildings Masters
-		var building = "GetBuilding";
-		var floor = "GetFloor";
-		var location = "GetLocation";
-		var product = "GetProduct";
-		var buildingMaster;
-		
-		$("#btnmaster").click(function(){
-		alert("clicked");
- 
-		$.ajax({
-				url: "http://10.2.145.53/MahindraSaboro/MahindraSaboro.asmx/GetBuilding",
-				type: 'GET',
-				success: function(data) {
-				//called when successful
-				buildingMaster = data;
-				alert(data);
-				
-				$(buildingMaster).find("BuildingList").each(function() {
-				var buildingid = $(this).find("BuildingID").text();
-				var buildingname = $(this).find("Building").text();
-				var locationid = $(this).find("LocationID").text();
-				var locationname = $(this).find("Location").text();
-			
-			alert("Building: " + buildingid + " buildingname: " + buildingname + "locationid" + locationid + "locationid" +locationname);
-			
-			var newOptions = [];
-			$.each(message, function(key, value) {
-				newOptions.push('<option value="'+ key +'">'+ value +'</option>');
-			});
-			$('#selectBoxControlID').html(newOptions.join(''));
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="UTF-8">
+	<title>Mahindra Saboro</title>
+	<link href="./CSS Shake_files/css" rel="stylesheet" type="text/css">
+	<link href="./CSS Shake_files/css(1)" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="./CSS Shake_files/csshake.css">
+	<link rel="stylesheet" type="text/css" href="./CSS Shake_files/style.css">
+	<link rel="stylesheet" type="text/css" href="./CSS Shake_files/onepage-scroll.css">
+	<link rel="stylesheet" type="text/css" href="./CSS Shake_files/prism.css">
+	<script async="" src="./CSS Shake_files/analytics.js"></script><script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
+	  ga('create', 'UA-48410558-1', 'elrumordelaluz.github.io');
+	  ga('send', 'pageview');
 
-
-    });
-				
-				//$('#ajaxphp-results').html(data);
-			},
-				error: function(e) {
-				//called when there is an error
-				console.log(e.message);
-				}
-			});
-		});
+	</script><style type="text/css"></style>
+	<style type="text/css">
+		#carbonads { 
+		    text-align: center;
+		    width: 178px;
+		    height: auto;
+		    right: 35px;
+		    top: 35px;
+		    position: fixed;
+		    background: rgba(255,255,255,0.8);
+		    border: 1px solid rgba(0,0,0,0.05);
+		    z-index: 1000000;
+		    font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+		    padding: 24px 24px 10px 24px;
+		    font-size: 12px;
+		    font-weight: 700;
+		}
 		
+		.carbon-text { 
+		    display: block; 
+		    width: 130px;
+		    color: #4f5152;
+		    padding: 10px 0 15px 0;
+		    display: block;
+		    line-height: 1.2;
+		    text-decoration: none;
+		}
 		
-		
-		//Load Masters - End
-		
-		
-		
-		var master = "<OrderMaster><Token_No> 288888</Token_No><Name>Vijay Bhonsle</Name> <MobileNo>98765444</MobileNo> <LocationID>1</LocationID><BuildingID>1</BuildingID> <FloorID>1</FloorID><Dept>FD </Dept> <OrderDate>23-Feb-2015</OrderDate><From_Time>10.00</From_Time><To_Time>12.00</To_Time><Subscription>test</Subscription><Delivery_Day>Monday</Delivery_Day></OrderMaster>";
-		
-		var detail = "<OrderDetails><Products><OrderId>123</OrderId> <ProductID>1</ProductID> <Quantity>2</Quantity> </Products> <Products> <OrderId>123</OrderId> <ProductID>2</ProductID><Quantity>2</Quantity></Products><Products> <OrderId>123</OrderId><ProductID>3</ProductID><Quantity>2</Quantity></Products></OrderDetails>";
-		
-		
-		$("#btnsubmit").click(function(){
-		alert("clicked");
- 
-
-		$.ajax({
-     type: "POST",
-	 contentType: "application/x-www-form-urlencoded",
-     url: "http://10.2.145.53/MahindraSaboro/MahindraSaboro.asmx/InsertOrder",
-     data: {
-          OrderMasterXML: master,
-          OrderDetailXML: detail
-        },
-     async: true,
-     success: function (data, textStatus) {
-	     alert(textStatus);
-		 alert(data);
-		 alert(data.childNodes[0].textContent);
-         if (textStatus == "success") {
-             if (data.hasOwnProperty('d')) {
-                 msg = data.d;
-             } else {
-                 msg = data;
-             }
-             alert(msg);
- 
-         }
-     },
-     error: function (data, status, error) {
-         alert("error");
-		 alert(data);
-		 alert(status);
-		 alert(error);
-     }
- });
-
- 
- 
- 
-    });
-});
-	</script>
+		.carbon-poweredby {
+			display: block;
+			text-transform: uppercase;
+			font-size: 65%;
+			letter-spacing: 1px;
+			color: #cc301e;
+			font-weight: 700;
+			text-decoration: none;
+		}
+	</style>
 </head>
-<body>
-    <div id="wrapper">
-        <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom:0;text-align: center;">
-		<img class="logo" src="assets/img/Saboro-logo.png" alt="logo" >
-            
-        </nav>   
-           
-        <!-- /. NAV SIDE  -->
-        <div id="page-wrapper"  style = "background-image: url(assets/img/Brands-2.jpg)">
-            <div id="page-inner">
-                
-                 <!-- /. ROW  -->
-                 <!-- <hr /> -->
-               <div class="row">
-                <div class="col-md-12">
-                    <!-- Form Elements -->
-					
-                    <div class="panel panel-default">
-                        
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <!-- <h3>Basic Form Examples</h3> -->
-                                    <form data-toggle="validator" role="form">
-                                        <div class="form-group">
-                                            <label for="token" class="control-label">Enter Token No.</label>
-                                            <input class="form-control" type="text" data-clear-btn="true" id="token" value="" placeholder="Please enter Token" maxlength="20" data-minlength="1"
-											required>
-											<span class="help-block with-errors"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="customername" class="control-label">Customer Name</label>
-                                            <input class="form-control" type="text" data-clear-btn="true"  id="customername" value="" placeholder="Please enter name" maxlength="40" data-minlength="1"
-											required>
-											<span class="help-block with-errors"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="mobile" class="control-label">Mobile Number</label>
-                                            <input class="form-control" type="text" data-clear-btn="true" id="mobile" value="" placeholder="Please enter mobile" maxlength="10" data-minlength="1"
-											required>
-											<span class="help-block with-errors">Up to 10 characters</span>
-                                        </div>
-										<div class="form-group">
-                                            <label for="orderdate" class="control-label">Order Date</label>
-                                            <input class="form-control" type="date" data-clear-btn="true" id="orderdate" value="" placeholder="Please enter date" 
-											required>
-											<span class="help-block with-errors"></span>
-                                        </div>
-										<div class="form-group">
-                                            <label for="fromtime" class="control-label">From Time</label>
-                                            <input class="form-control" type="time"  name="fromtime" id="fromtime" value="" placeholder="Please enter From time"
-											required>
-											<span class="help-block with-errors"></span>
-                                        </div>
-										<div class="form-group">
-                                            <label for="totime" class="control-label">To Time</label>
-                                            <input class="form-control" type="time" name="totime" id="totime" value="" placeholder="Please enter To time"
-											required>
-											<span class="help-block with-errors"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Subscription</label>
-                                            <select class="form-control">
-                                                <option>Daily</option>
-                                                <option>Weekly</option>
-                                                <option>Monthly</option>
-                                            </select>
-                                        </div>
-										<div class="form-group">
-                                            <label>Subscription Delivery Day</label>
-                                            <select class="form-control">
-                                                <option>Sunday</option>
-                                                <option>Monday</option>
-                                                <option>Tuesday</option>
-                                                <option>Wednesday</option>
-												<option>Thursday</option>
-												<option>Friday</option>
-												<option>Saturday</option>
-                                            </select>
-                                        </div>
-                                        
-
-                                    </form>
-                                    <br />
-                                 
-								</div>
-                                
-                                <div class="col-md-6">
-                                    <!-- <h3>Disabled Form State Examples</h3> -->
-                                    <form role="form">
-                                        <!-- <fieldset disabled="disabled"> -->
-                                            <div class="form-group">
-                                                <label for="disabledSelect">Location</label>
-                                                <select id="location" class="form-control">
-                                                    <option>Mumbai</option>
-													<option>Pune</option>
-													<option>Nasik</option>
-													<option>Indore</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label >Building</label>
-                                                <select id="building" class="form-control">
-                                                    <option>AD</option>
-													<option>PU</option>
-													<option>AFS</option>
-													<option>DMS</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label >Floor</label>
-                                                <select  class="form-control">
-                                                    <option>1st</option>
-													<option>2nd</option>
-													<option>3rd</option>
-													<option>4th</option>
-                                                </select>
-                                            </div>
-                                            
-                                        <!-- </fieldset> -->
-                                    </form>
-                                    
-                                    <form data-toggle="validator" role="form">
-                                        <div class="form-group">
-                                            <label for="department" class="control-label">Department</label>
-                                            <input class="form-control" type="text" data-clear-btn="true"  id="department" value="" placeholder="Please enter department"
-											required>
-											<span class="help-block with-errors"></span>
-                                        </div>
-                                        <div class="form-group">
-                                                <label >Product</label>
-                                                <select  class="form-control">
-                                                    <option>Product 1</option>
-													<option>Product 2</option>
-													<option>Product 3</option>
-													<option>Product 4</option>
-                                                </select>
-                                            </div>
-                                        <div class="form-group">
-                                            <label for="qty" class="control-label">Quantity</label>
-                                            <input class="form-control" type="number" data-clear-btn="true" id="qty" value="" placeholder="Please enter quantity" 
-											required>
-											<span class="help-block with-errors"></span>
-                                        </div>
-                                    </form>
-									<button type="submit" id="btnsubmit" class="btn btn-success">Submit Button</button>
-                                    <button type="reset" id="btnreset" class="btn btn-primary">Reset Button</button>
-									<button type="submit" id="btnmaster" class="btn btn-primary">Master Button</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                     <!-- End Form Elements -->
-                </div>
-            </div>
-             <!-- /. PAGE INNER  -->
-            </div>
-         <!-- /. PAGE WRAPPER  -->
-        </div>
+<body class="viewing-page-1">
+<ul class="onepage-pagination">
+<li><a data-index="1" href="#1" class="active"></a></li>
+<li><a data-index="2" href="#2"></a></li>
+<li><a data-index="3" href="#3"></a></li>
+<li><a data-index="4" href="#4"></a></li>
+<li><a data-index="5" href="#5"></a></li>
+</ul>
+	<div class="main onepage-wrapper" style="position: relative;">
+		<section class="section home shamrock active" data-index="1" style="position: absolute; top: 0%;">
+			<div class="glass shake shake-hard freez">
+			  <i class="bubble"></i>
+			  <i class="bubble big"></i>
+			  <i class="bubble"></i>
+			  <i class="bubble big"></i>
+			  <i class="bubble small"></i>
+			  <i class="bubble"></i>
+			  <i class="bubble"></i>
+			  <i class="bubble small"></i>
+			  <i class="bubble"></i>
+			  <i class="bubble small"></i>
+			  <span class="straw"></span>
+			</div>
+			<h1>Saboro<span class="shake shake-delay">Shake</span></h1>
+			<a class="arrow shake shake-constant"></a>
+		</section>
+		<section class="section dolly dark-txt" data-index="2" style="position: absolute; top: 500%;">
+			<h1 class="shake shake-slow">About Saboro Juice </h1>
+			<p>The goodness of cold pressed juices is in the fact that it actually has the nutritional properties of the fruit, vegetable, herb and spice used to make it. Unlike other centrifugally juiced beverages, where the produce loses all value when exposed to heat as a result of contracting with blades, used to extract the juice. Since our machines effectively squeeze the juice out of produce, the Vitamins, enzymes, trace minerals and all the valuable nutrition stays intact, giving you pure, vibrant- colored juice mixes that are exceptionally healthy and taste out of this world.</p>
+			<a class="arrow shake shake-constant"></a>
+		</section>
+		<section class="section carrot" data-index="3" style="position: absolute; top: 100%;">
+			<h1 class="shake shake-slow">Saboro Juice for Health</h1>
+			<br>
+			<h4>This process creates a nutrient rich, smooth and thick raw juice.  Because there is minimal pulp in the juice, your body is able to quickly benefit from all the nutrients of the juice without having to work to digest them. This enables the vital vitamins and mighty minerals to go directly into your cells for an immediate energizing impact.</h4>
+			<a class="arrow shake shake-constant"></a>
+		</section>
+		<section class="section pear" data-index="4" style="position: absolute; top: 200%;">
+			<h1 class="shake shake-slow">Saboro Sip</h1>
+			<br>
+			<h4>Saboro Cold Pressed juices are thoughtfully concocted and passionately made to ensure that you sip onto the most delicious health nectars available in India Today.</h4>
+			<a class="arrow shake shake-constant"></a>
+		</section>
+		<section class="section code amethyst" data-index="5" style="position: absolute; top: 300%;">
+			<h1 class="shake shake-slow">Inside Saboro</h1>
+			<br>
+			<h4>We work hard to give you never before tasted juice and smoothie recipes that add to your everyday health. It makes us beyond happy that we can be a part of your everyday journey to make better choices to help you Be Healthy, Be Happy.</h4>
+			<a class="arrow shake shake-constant" href="order.html"></a>
+		</section>
 		
-     <!-- /. WRAPPER  -->
-    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
-    <!-- JQUERY SCRIPTS -->
-    <!--<script src="assets/js/jquery-1.10.2.js"></script>-->
-      <!-- BOOTSTRAP SCRIPTS -->
-    <script src="assets/js/bootstrap.min.js"></script>
-    <!-- METISMENU SCRIPTS -->
-    <script src="assets/js/jquery.metisMenu.js"></script>
-      <!-- CUSTOM SCRIPTS -->
-    <script src="assets/js/custom.js"></script>
-	<!--Validator -->
-	<script src="assets/js/validator.min.js"></script>
-    
-   
-</body>
-</html>
+	</div>
+
+
+	<!-- prefixfree yeah! from here: http://leaverou.github.io/prefixfree/ -->
+	<!-- <script type="text/javascript" src="js/prefixfree.min.js"></script> -->
+	<!--No more essential for the Demo since added some -prefixes in the main @mixins -->
+	
+	<script src="./CSS Shake_files/jquery.min.js"></script>
+	<script type="text/javascript" src="./CSS Shake_files/jquery.onepage-scroll.min.js"></script>
+	<script type="text/javascript" src="./CSS Shake_files/prism.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".main").onepage_scroll({
+			   sectionContainer: "section",
+			   easing: "ease",
+			   animationTime: 1000,
+			   pagination: true,
+			   updateURL: false,  
+			   beforeMove: function(index) {},
+			   afterMove: function(index) {},
+			   loop: false,
+			   keyboard: true,        
+			   responsiveFallback: false
+			});
+			$('.arrow').click(function(){
+				$(".main").moveDown();
+			})
+			$('#shake-type').change(function(){
+				var newShake = $(this).val();
+				var regex = /(\s)*(shake-.*?)(?=\s)/g; 
+				$('#pr1, #pr2').removeClass('shake-hard shake-slow shake-little shake-horizontal shake-vertical shake-rotate shake-opacity shake-crazy').addClass(newShake);
+			})
+
+		}) // Ready
+
+		
+	</script>
+	<script async="" type="text/javascript" src="http://cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=elrumordelaluzgithubiocsshake" id="_carbonads_js"></script>
+
+
+<div id="window-resizer-tooltip"><a href="http://elrumordelaluz.github.io/csshake/#" title="Edit settings"></a><span class="tooltipTitle">Window size: </span><span class="tooltipWidth" id="winWidth"></span> x <span class="tooltipHeight" id="winHeight"></span><br><span class="tooltipTitle">Viewport size: </span><span class="tooltipWidth" id="vpWidth"></span> x <span class="tooltipHeight" id="vpHeight"></span></div></body></html>
